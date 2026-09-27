@@ -1,0 +1,47 @@
+name: Discord Project Notifications
+
+on:
+  issues:
+    types:
+      - opened
+      - edited
+      - closed
+      - reopened
+      - assigned
+      - unassigned
+      - labeled
+      - unlabeled
+
+jobs:
+  discord:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          ACTION="${{ github.event.action }}"
+          TITLE="${{ github.event.issue.title }}"
+          URL="${{ github.event.issue.html_url }}"
+          AUTHOR="${{ github.event.issue.user.login }}"
+          NUMBER="${{ github.event.issue.number }}"
+
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d "{
+            \"embeds\": [{
+              \"title\": \"Issue #${NUMBER}: ${TITLE}\",
+              \"url\": \"${URL}\",
+              \"description\": \"Action: **${ACTION}**\",
+              \"color\": 5814783,
+              \"fields\": [
+                {
+                  \"name\": \"Author\",
+                  \"value\": \"${AUTHOR}\",
+                  \"inline\": true
+                }
+              ]
+            }]
+          }" \
+          "$DISCORD_WEBHOOK"
