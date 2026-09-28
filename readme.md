@@ -17,13 +17,19 @@ To maintain consistency across the project, please follow these rules:
 ## 🔄 Contribution Workflow
 We welcome contributions! Please follow this structured process:
 
+ADITIONAL:
+Every Milestone will have a stage code branch.
+Example: stage_xx_boss_arena, stage_xy_equipment.
+That will be a branch that combine every issue associated.
+
+
 1. **Fork the repository**  
    Create your own copy of the project to work on.
 
-2. **Create a branch from `stage`**  
+2. **Create a branch from `main`**  
    - All contributions must be submitted to the `stage` branch.  
    - The branch name must **contain the related issue number or description**.  
-     Example: `issue42_fixPlayerMovement`
+     Example: "[issue_number] + _name_with_dash" `42_fixPlayerMovement`
 
 3. **Develop your changes**  
    - Follow the naming conventions described above.  
