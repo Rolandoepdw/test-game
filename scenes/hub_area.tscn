@@ -1,3 +1,118 @@
 [gd_scene format=3 uid="uid://b8li78x4qyslg"]
 
+[ext_resource type="PackedScene" uid="uid://5uf6w7g44500" path="res://objects/player.tscn" id="1_e4xc4"]
+[ext_resource type="Script" uid="uid://bdedkl8d4xpt1" path="res://components/follow_camera.gd" id="2_os512"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ixgm3"]
+
+[sub_resource type="Sky" id="Sky_0cs8f"]
+sky_material = SubResource("ProceduralSkyMaterial_ixgm3")
+
+[sub_resource type="Environment" id="Environment_mxjxd"]
+background_mode = 2
+sky = SubResource("Sky_0cs8f")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxjxd"]
+albedo_color = Color(0.27450982, 0.27450982, 0.2901961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gp5hr"]
+material = SubResource("StandardMaterial3D_mxjxd")
+size = Vector3(60, 1, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gp5hr"]
+size = Vector3(60, 1, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gp5hr"]
+albedo_color = Color(0.8, 0.5019608, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mxjxd"]
+material = SubResource("StandardMaterial3D_gp5hr")
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mxjxd"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4xc4"]
+albedo_color = Color(0.11764706, 0.44705883, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gp5hr"]
+material = SubResource("StandardMaterial3D_e4xc4")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gp5hr"]
+
 [node name="HubArea" type="Node3D" unique_id=1403689598]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=170304854]
+environment = SubResource("Environment_mxjxd")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=873903999]
+transform = Transform3D(0.9396926, -0.24184474, 0.24184474, 0, 0.70710677, 0.70710677, -0.34202012, -0.664463, 0.664463, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=449260893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=640339052]
+mesh = SubResource("BoxMesh_gp5hr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=368092505]
+shape = SubResource("BoxShape3D_gp5hr")
+
+[node name="Obstacles" type="Node3D" parent="." unique_id=1296975056]
+
+[node name="ObstacleA" type="StaticBody3D" parent="Obstacles" unique_id=1653614703]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, 6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/ObstacleA" unique_id=562493717]
+mesh = SubResource("BoxMesh_mxjxd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/ObstacleA" unique_id=1976696777]
+shape = SubResource("BoxShape3D_mxjxd")
+
+[node name="ObstacleC" type="StaticBody3D" parent="Obstacles" unique_id=573229400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -10)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/ObstacleC" unique_id=1048462136]
+mesh = SubResource("BoxMesh_mxjxd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/ObstacleC" unique_id=435567217]
+shape = SubResource("BoxShape3D_mxjxd")
+
+[node name="ObstacleB" type="StaticBody3D" parent="Obstacles" unique_id=308510928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 12)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/ObstacleB" unique_id=2087072746]
+mesh = SubResource("BoxMesh_mxjxd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/ObstacleB" unique_id=456678570]
+shape = SubResource("BoxShape3D_mxjxd")
+
+[node name="Player" parent="." unique_id=505320710 instance=ExtResource("1_e4xc4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="TestVisual" type="MeshInstance3D" parent="Player" unique_id=2003645283]
+mesh = SubResource("CapsuleMesh_gp5hr")
+
+[node name="TestCollision" type="CollisionShape3D" parent="Player" unique_id=1116914405]
+shape = SubResource("CapsuleShape3D_gp5hr")
+
+[node name="PlayerStart" type="Marker3D" parent="." unique_id=1405414708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="TestingArea" type="Node3D" parent="." unique_id=554570892]
+
+[node name="EnemySpawnA" type="Marker3D" parent="TestingArea" unique_id=1612633982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, 0)
+
+[node name="EnemySpawnC" type="Marker3D" parent="TestingArea" unique_id=160798756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 0)
+
+[node name="EnemySpawnB" type="Marker3D" parent="TestingArea" unique_id=311880349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
+
+[node name="CameraRig" type="Node3D" parent="." unique_id=242026715 node_paths=PackedStringArray("target")]
+script = ExtResource("2_os512")
+target = NodePath("../Player")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=331390625]
+current = true
